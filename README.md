@@ -19,7 +19,20 @@ OpenAPI __Producer__ доступен по ссылке: `http://localhost:8080/
 `GET /statistics/{id}` - Получение статистики по ее идентификатору.
 
 OpenAPI __Consumer__ доступен по ссылке: `http://localhost:8081/swagger-ui/index.html`  
-  
+
+### Инструкция по запуску
+
+Для запуска кафки и базы данных необходимо из корневой директории проекта вызвать команду:  
+`docker-compose up`  
+Затем необходимо запустить **metrics-producer** и **metrics-consumer** приложения.
+
+Подключиться к базе данных можно со следующими настройками:  
+`host: localhost`    
+`port: 5435`  
+`database: monitoring_system`  
+`username: postgres`    
+`password: postgres`
+
 ### Документация  
   
 В ходе работы __Producer__ отправляет метрики каждые пять секунд, __Consumer__ их обрабатывает и сохраняет в базу данных.  
@@ -38,16 +51,3 @@ OpenAPI __Consumer__ доступен по ссылке: `http://localhost:8081/
 **ER-диаграмма** структуры базы данных:  
 
 ![er-diagram.png](er-diagram.png)
-
-### Инструкция по запуску  
-
-Для запуска кафки и базы данных необходимо из корневой директории проекта вызвать команду:  
-`docker-compose up`  
-Затем необходимо запустить **metrics-producer** и **metrics-consumer** приложения.  
-
-Подключиться к базе данных можно со следующими настройками:  
-`host: localhost`    
-`port: 5435`  
-`database: monitoring_system`  
-`username: postgres`    
-`password: postgres`  
