@@ -3,8 +3,6 @@ info:
   title: "kafka-monitoring-system API"
   description: "metrics-producer API"
   version: 1.0.0
-servers:
-  - url: 'https'
 paths:
   /metrics:
     post:
