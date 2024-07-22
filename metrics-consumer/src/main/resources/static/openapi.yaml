@@ -1,0 +1,139 @@
+openapi: "3.0.3"
+info:
+  title: "kafka-monitoring-system API"
+  description: "metrics-consumer API"
+  version: "1.0.0"
+paths:
+  /metrics:
+    get:
+      summary: "Получить все метрики"
+      operationId: "getMetrics"
+      responses:
+        "200":
+          description: "Возвращает все метрики"
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MetricResponse"
+  /metrics/{id}:
+    get:
+      summary: "Получить метрику по идентификатору"
+      operationId: "getMetricById"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "Возвращает метрику по id"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/MetricResponse"
+  /statistics:
+    get:
+      summary: "Получить всю статистику"
+      operationId: "getStatisticResponses"
+      responses:
+        "200":
+          description: "Возвращает всю статистику"
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/StatisticResponse"
+  /statistics/{id}:
+    get:
+      summary: "Получить статистику по идентификатору"
+      operationId: "getStatisticById"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "Возвращает статистику по id"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/StatisticResponse"
+
+components:
+  schemas:
+    MetricResponse:
+      type: object
+      description: "DTO для метрики"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        name:
+          type: "string"
+        description:
+          type: "string"
+        baseUnit:
+          type: "string"
+        createdAt:
+          type: "string"
+          format: "date-time"
+        measurements:
+          type: array
+          items:
+            $ref: "#/components/schemas/Sample"
+        availableTags:
+          type: array
+          items:
+            $ref: "#/components/schemas/AvailableTagResponse"
+    StatisticResponse:
+      type: object
+      description: "DTO для статистики"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        metricName:
+          type: "string"
+        startTime:
+          type: "string"
+          format: "date-time"
+        endTime:
+          type: "string"
+          format: "date-time"
+        max:
+          type: number
+          format: double
+        min:
+          type: number
+          format: double
+        average:
+          type: number
+          format: double
+    Sample:
+      type: object
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        statistic:
+          type: "string"
+        value:
+          type: number
+          format: double
+    AvailableTagResponse:
+      type: object
+      properties:
+        tag:
+          type: "string"
+        values:
+          type: array
+          items:
+            type: "string"
