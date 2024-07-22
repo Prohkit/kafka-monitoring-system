@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: metrics-producer
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - metrics
+
+springdoc:
+  swagger-ui:
+    url: /openapi.yaml
+
+metrics:
+  names: jvm.memory.used,process.cpu.usage
+  topic-name: metrics-topic
